@@ -11,6 +11,12 @@ public class Artist {
 
     public Artist() {
         albums = Collections.emptyList();
+        id = -1;
+    }
+
+    public Artist(String name) {
+        this();
+        this.name = name;
     }
 
     public int getId() {
@@ -43,5 +49,10 @@ public class Artist {
 
     public boolean removeAlbum(Album album) {
         return albums.remove(album);
+    }
+
+    @Override
+    public String toString() {
+        return "Artist{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
 }

@@ -11,6 +11,12 @@ public class Genre {
 
     public Genre() {
         tracks = Collections.emptySet();
+        id = -1;
+    }
+
+    public Genre(String name) {
+        this();
+        this.name = name;
     }
 
     public int getId() {
@@ -43,5 +49,10 @@ public class Genre {
 
     public boolean removeTrack(Track track) {
         return tracks.remove(track);
+    }
+
+    @Override
+    public String toString() {
+        return "Genre{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
 }

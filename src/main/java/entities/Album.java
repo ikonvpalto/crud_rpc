@@ -13,6 +13,12 @@ public class Album {
 
     public Album() {
         tracks = Collections.emptyList();
+        id = -1;
+    }
+
+    public Album(String title) {
+        this();
+        this.title = title;
     }
 
     public int getId() {
@@ -53,5 +59,10 @@ public class Album {
 
     public boolean removeTrack(Track track) {
         return tracks.remove(track);
+    }
+
+    @Override
+    public String toString() {
+        return "Album{" + "id=" + id + ", title='" + title + '\'' + ", artist=" + artist + '}';
     }
 }
