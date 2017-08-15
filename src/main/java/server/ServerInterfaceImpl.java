@@ -1,14 +1,12 @@
-package server.db;
-
-import server.ObjectPool;
+package server;
 
 import java.util.List;
 
 public class ServerInterfaceImpl implements ServerInterface {
 
     @Override
-    public void save(Object value) {
-        ObjectPool.getPool().getDAO(value.getClass()).save(value);
+    public int save(Object value) {
+        return ObjectPool.getPool().getDAO(value.getClass()).save(value);
     }
 
     @Override
