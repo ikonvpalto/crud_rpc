@@ -5,34 +5,24 @@ import org.hibernate.Session;
 import server.ObjectPool;
 import server.dao.DAO;
 
-import java.util.Collections;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class ArtistDAO extends DAO<Artist> {
 
-
-    @Override
-    protected String toStringPattern(Artist pattern) {
-        if (null == pattern)
-            return "";
-        StringBuilder s = new StringBuilder();
-        if (null != pattern.getName())
-            s.append("Artist.name like '%").append(pattern.getName()).append("%' ");
-        if (0 != s.length())
-            return s.toString();
-        return "";
-    }
-
     @Override
     public List<Artist> get(Artist pattern) {
-        Session session = ObjectPool.getPool().getSessionFactory().openSession();
         List<Artist> result;
-        if (null != pattern && 0 < pattern.getId()) {
-            result = Collections.emptyList();
-            result.add(getById(pattern));
-        } else {
-            result = session.createQuery(toStringPattern(pattern), Artist.class).list();
-        }
+        Session session = ObjectPool.getPool().getSessionFactory().openSession();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Artist> criteria = builder.createQuery(Artist.class);
+        Root<Artist> root = criteria.from(Artist.class);
+        criteria.where(builder.like(root.get("name"), '%' + pattern.getName() + '%'));
+        result = session.createQuery(criteria).list();
+
         session.close();
         return result;
     }

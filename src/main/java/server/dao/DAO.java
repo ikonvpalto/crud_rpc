@@ -7,11 +7,11 @@ import java.util.List;
 
 public abstract class DAO<T> {
 
-    protected abstract String toStringPattern(T pattern);
-
     public void save(T value) {
         Session session = ObjectPool.getPool().getSessionFactory().openSession();
+        session.beginTransaction();
         session.save(value);
+        session.getTransaction().commit();
         session.close();
     }
 
@@ -21,13 +21,17 @@ public abstract class DAO<T> {
 
     public void update(T newValue) {
         Session session = ObjectPool.getPool().getSessionFactory().openSession();
+        session.beginTransaction();
         session.update(newValue);
+        session.getTransaction().commit();
         session.close();
     }
 
     public void delete(T value) {
         Session session = ObjectPool.getPool().getSessionFactory().openSession();
+        session.beginTransaction();
         session.delete(value);
+        session.getTransaction().commit();
         session.close();
     }
 

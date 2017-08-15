@@ -5,33 +5,25 @@ import org.hibernate.Session;
 import server.ObjectPool;
 import server.dao.DAO;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.Collections;
 import java.util.List;
 
 public class AlbumDAO extends DAO<Album> {
 
     @Override
-    protected String toStringPattern(Album pattern) {
-        if (null == pattern)
-            return "";
-        StringBuilder s = new StringBuilder();
-        if (null != pattern.getTitle() && 0 != pattern.getTitle().length())
-            s.append("Album.title like '%").append(pattern.getTitle()).append("%' ");
-        if (0 != s.length())
-            return s.toString();
-        return "";
-    }
-
-    @Override
     public List<Album> get(Album pattern) {
-        Session session = ObjectPool.getPool().getSessionFactory().openSession();
         List<Album> result;
-        if (null != pattern && 0 < pattern.getId()) {
-            result = Collections.emptyList();
-            result.add(getById(pattern));
-        } else {
-            result = session.createQuery(toStringPattern(pattern), Album.class).list();
-        }
+        Session session = ObjectPool.getPool().getSessionFactory().openSession();
+
+        CriteriaBuilder builder = session.getCriteriaBuilder();
+        CriteriaQuery<Album> criteria = builder.createQuery(Album.class);
+        Root<Album> root = criteria.from(Album.class);
+        criteria.where(builder.like(root.get("title"), '%' + pattern.getTitle() + '%'));
+        result = session.createQuery(criteria).list();
+
         session.close();
         return result;
     }

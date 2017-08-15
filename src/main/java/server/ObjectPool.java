@@ -15,6 +15,7 @@ import server.dao.impl.GenreDAO;
 import server.dao.impl.TrackDAO;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 
 
@@ -39,7 +40,7 @@ public class ObjectPool {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        entityDAO = Collections.emptyMap();
+        entityDAO = new HashMap<>();
         entityDAO.put(Album.class, new AlbumDAO());
         entityDAO.put(Artist.class, new ArtistDAO());
         entityDAO.put(Track.class, new TrackDAO());
