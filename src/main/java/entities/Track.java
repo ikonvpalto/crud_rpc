@@ -64,4 +64,11 @@ public class Track {
     public String toString() {
         return "Track{" + "id=" + id + ", title='" + title + '\'' + ", album=" + album + '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Track)
+                && (id == ((Track) obj).getId())
+                && (title.equals(((Track) obj).getTitle()));
+    }
 }

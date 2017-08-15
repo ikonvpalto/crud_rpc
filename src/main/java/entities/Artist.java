@@ -55,4 +55,11 @@ public class Artist {
     public String toString() {
         return "Artist{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Artist)
+                && (id == ((Artist) obj).getId())
+                && (name.equals(((Artist) obj).getName()));
+    }
 }

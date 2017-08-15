@@ -55,4 +55,11 @@ public class Genre {
     public String toString() {
         return "Genre{" + "id=" + id + ", name='" + name + '\'' + '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Genre)
+                && (id == ((Genre) obj).getId())
+                && (name.equals(((Genre) obj).getName()));
+    }
 }

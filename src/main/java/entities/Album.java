@@ -65,4 +65,11 @@ public class Album {
     public String toString() {
         return "Album{" + "id=" + id + ", title='" + title + '\'' + ", artist=" + artist + '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof Album)
+                && (id == ((Album) obj).getId())
+                && (title.equals(((Album) obj).getTitle()));
+    }
 }
