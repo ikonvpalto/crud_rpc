@@ -1,9 +1,10 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
-public class Artist {
+public class Artist implements Serializable{
 
     private int id;
     private String name;

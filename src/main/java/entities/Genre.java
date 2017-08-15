@@ -1,9 +1,10 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Set;
 
-public class Genre {
+public class Genre implements Serializable {
 
     private int id;
     private String name;

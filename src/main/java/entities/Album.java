@@ -1,10 +1,11 @@
 package entities;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-public class Album {
+public class Album implements Serializable {
 
     private int id;
     private String title;
