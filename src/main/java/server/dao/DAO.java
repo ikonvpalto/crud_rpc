@@ -7,12 +7,13 @@ import java.util.List;
 
 public abstract class DAO<T> {
 
-    public void save(T value) {
+    public int save(T value) {
         Session session = ObjectPool.getPool().getSessionFactory().openSession();
         session.beginTransaction();
-        session.save(value);
+        int id = (Integer) session.save(value);
         session.getTransaction().commit();
         session.close();
+        return id;
     }
 
     public abstract List<T> get(T pattern);

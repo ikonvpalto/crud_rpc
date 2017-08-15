@@ -31,7 +31,7 @@ public class GenreDAO extends DAO<Genre> {
     public Genre getById(Genre pattern) {
         Session session = ObjectPool.getPool().getSessionFactory().openSession();
         Genre result = session.get(Genre.class, pattern.getId());
-        session.getTransaction().commit();
+        session.close();
         return result;
     }
 }

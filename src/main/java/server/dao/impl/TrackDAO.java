@@ -31,7 +31,7 @@ public class TrackDAO extends DAO<Track> {
     public Track getById(Track pattern) {
         Session session = ObjectPool.getPool().getSessionFactory().openSession();
         Track result = session.get(Track.class, pattern.getId());
-        session.getTransaction().commit();
+        session.close();
         return result;
     }
 }
