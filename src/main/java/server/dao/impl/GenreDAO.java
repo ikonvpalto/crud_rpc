@@ -12,26 +12,31 @@ import java.util.List;
 
 public class GenreDAO extends DAO<Genre> {
 
+
     @Override
-    public List<Genre> get(Genre pattern) {
-        List<Genre> result;
-        Session session = ObjectPool.getPool().getSessionFactory().openSession();
-
-        CriteriaBuilder builder = session.getCriteriaBuilder();
-        CriteriaQuery<Genre> criteria = builder.createQuery(Genre.class);
-        Root<Genre> root = criteria.from(Genre.class);
-        criteria.where(builder.like(root.get("name"), '%' + pattern.getName() + '%'));
-        result = session.createQuery(criteria).list();
-
-        session.close();
-        return result;
+    protected String getWhereStatement(Genre pattern) {
+        if (null == pattern)
+            return "";
+        StringBuilder s = new StringBuilder();
+        if (null != pattern.getName())
+            s.append(" Genre.title = ")
+             .append(pattern.getName());
+        return s.toString();
     }
 
     @Override
-    public Genre getById(Genre pattern) {
-        Session session = ObjectPool.getPool().getSessionFactory().openSession();
-        Genre result = session.get(Genre.class, pattern.getId());
-        session.close();
-        return result;
+    protected String getSetStatement(Genre pattern) {
+        if (null == pattern)
+            return "";
+        StringBuilder s = new StringBuilder();
+        if (null != pattern.getName())
+            s.append(" Genre.title = ")
+             .append(pattern.getName());
+        return s.toString();
+    }
+
+    @Override
+    protected int getId(Genre value) {
+        return value.getId();
     }
 }

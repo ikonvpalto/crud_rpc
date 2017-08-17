@@ -47,6 +47,8 @@ public class ObjectPool {
         entityDAO.put(Genre.class, new GenreDAO());
     }
 
+    public void init() {}
+
     public SessionFactory getSessionFactory() {
         return sessionFactory;
     }
