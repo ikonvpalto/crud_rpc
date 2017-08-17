@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ public class Album implements Serializable {
     private List<Track> tracks;
 
     public Album() {
-        tracks = Collections.emptyList();
+        tracks = new LinkedList<>();
         id = -1;
     }
 
@@ -44,6 +45,7 @@ public class Album implements Serializable {
 
     public void setArtist(Artist artist) {
         this.artist = artist;
+        artist.addAlbum(this);
     }
 
     public List<Track> getTracks() {

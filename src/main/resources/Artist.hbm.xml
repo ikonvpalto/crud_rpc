@@ -11,6 +11,10 @@
             <generator class="identity"/>
         </id>
         <property name="name" type="java.lang.String" column="name"/>
+        <bag name="albums" inverse="true" lazy="true" cascade="delete" table="album" order-by="album_id">
+            <key column="artist_id"/>
+            <one-to-many class="entities.Album"/>
+        </bag>
     </class>
 
 </hibernate-mapping>

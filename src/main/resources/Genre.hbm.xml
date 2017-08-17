@@ -11,6 +11,10 @@
             <generator class="identity"/>
         </id>
         <property name="name" type="java.lang.String" column="name"/>
+        <set name="tracks" lazy="true" cascade="none" table="track_genre" inverse="true">
+            <key column="genre_id"/>
+            <many-to-many class="entities.Track" column="track_id"/>
+        </set>
     </class>
 
 </hibernate-mapping>

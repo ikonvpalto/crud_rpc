@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Track implements Serializable {
@@ -12,7 +13,7 @@ public class Track implements Serializable {
     private Set<Genre> genres;
 
     public Track() {
-        genres = Collections.emptySet();
+        genres = new HashSet<>();
         id = -1;
     }
 
@@ -43,6 +44,7 @@ public class Track implements Serializable {
 
     public void setAlbum(Album album) {
         this.album = album;
+        album.addTrack(this);
     }
 
     public Set<Genre> getGenres() {
@@ -54,7 +56,7 @@ public class Track implements Serializable {
     }
 
     public boolean addGenre(Genre genre) {
-        return genres.add(genre);
+        return (genre.addTrack(this)) && (genres.add(genre));
     }
 
     public boolean removeGenre(Genre genre) {

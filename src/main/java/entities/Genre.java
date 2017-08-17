@@ -2,6 +2,7 @@ package entities;
 
 import java.io.Serializable;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Genre implements Serializable {
@@ -11,7 +12,7 @@ public class Genre implements Serializable {
     private Set<Track> tracks;
 
     public Genre() {
-        tracks = Collections.emptySet();
+        tracks = new HashSet<>();
         id = -1;
     }
 
