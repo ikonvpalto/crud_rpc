@@ -1,3 +1,6 @@
+import entities.Album;
+import entities.Artist;
+import entities.Genre;
 import entities.Track;
 import org.junit.After;
 import org.junit.Assert;
@@ -30,7 +33,32 @@ public class TestTrackDAO extends Assert {
     }
 
     @Test
+    public void test() {
+        Artist artist = new Artist("323");
+        Album album = new Album("qwe");
+        album.setArtist(artist);
+        tracks[0].setAlbum(album);
+        dao.save(tracks[0]);
+        Album other = new Album("blabla");
+        artist.setId(1);
+        artist.setName(null);
+        other.setArtist(artist);
+        tracks[0].setAlbum(other);
+        tracks[0].setTitle(null);
+        dao.update(tracks[0]);
+        System.out.println(dao.getById(tracks[0]));
+    }
+
+    @Test
     public void testSave() {
+        Genre genre1 = new Genre("1");
+        Genre genre2 = new Genre("2");
+        Artist artist = new Artist("323");
+        Album album = new Album("qwe");
+        album.setArtist(artist);
+        tracks[0].setAlbum(album);
+        tracks[0].addGenre(genre1);
+        tracks[0].addGenre(genre2);
         dao.save(tracks[0]);
         assertNotEquals(-1, tracks[0].getId());
     }
